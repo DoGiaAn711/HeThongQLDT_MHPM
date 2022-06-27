@@ -8,32 +8,32 @@ package Model;
  *
  * @author Hoanguyen
  */
-public class ThongTinSinhVien {
-    private int MaSV;
+public class ThongTinGiaoVien {
+    private int MaGV;
     private int IDTK;
-    private String TenSV;
+    private int MaLop;
+    private String TenGV;
     private int SDT;
     private String DiaChi;
-    private String Lop;
 
-    public ThongTinSinhVien() {
+    public ThongTinGiaoVien() {
     }
 
-    public ThongTinSinhVien(int MaSV, int IDTK, String TenSV, int SDT, String DiaChi, String Lop) {
-        this.MaSV = MaSV;
+    public ThongTinGiaoVien(int MaGV, int IDTK, int MaLop, String TenGV, int SDT, String DiaChi) {
+        this.MaGV = MaGV;
         this.IDTK = IDTK;
-        this.TenSV = TenSV;
+        this.MaLop = MaLop;
+        this.TenGV = TenGV;
         this.SDT = SDT;
         this.DiaChi = DiaChi;
-        this.Lop = Lop;
     }
 
-    public int getMaSV() {
-        return MaSV;
+    public int getMaGV() {
+        return MaGV;
     }
 
-    public void setMaSV(int MaSV) {
-        this.MaSV = MaSV;
+    public void setMaGV(int MaGV) {
+        this.MaGV = MaGV;
     }
 
     public int getIDTK() {
@@ -44,12 +44,20 @@ public class ThongTinSinhVien {
         this.IDTK = IDTK;
     }
 
-    public String getTenSV() {
-        return TenSV;
+    public int getMaLop() {
+        return MaLop;
     }
 
-    public void setTenSV(String TenSV) {
-        this.TenSV = TenSV;
+    public void setMaLop(int MaLop) {
+        this.MaLop = MaLop;
+    }
+
+    public String getTenGV() {
+        return TenGV;
+    }
+
+    public void setTenGV(String TenGV) {
+        this.TenGV = TenGV;
     }
 
     public int getSDT() {
@@ -67,14 +75,5 @@ public class ThongTinSinhVien {
     public void setDiaChi(String DiaChi) {
         this.DiaChi = DiaChi;
     }
-
-    public String getLop() {
-        return Lop;
-    }
-
-    public void setLop(String Lop) {
-        this.Lop = Lop;
-    }
     
 }
-

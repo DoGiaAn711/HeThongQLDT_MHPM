@@ -4,6 +4,9 @@
  */
 package View;
 
+import com.sun.jdi.connect.spi.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
@@ -43,6 +46,11 @@ public class Dang_Nhap extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Đăng nhập");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 110, 30));
 
         buttonGroup2.add(jCheckBox1);
@@ -82,6 +90,60 @@ public class Dang_Nhap extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String username = jTextPane1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+        
+ 
+        if (username.equals("") || password.equals("") ) {
+            JOptionPane.showConfirmDialog(rootPane, "Some Fields Are is Empty", "Error", 1);
+        } else {
+             PreparedStatement pst = null;
+             Connection conn = null;
+            try {
+                conn =  JDBCConnection.getJDBCConnection();
+                String sql = "SELECT * FROM user WHERE USERNAME =  ? AND PASSWORD = ?";
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, username);
+                pst.setString(2, password);
+ 
+                ResultSet resultSet = pst.executeQuery();
+ 
+                if (resultSet.next()) {
+                    String s1 = resultSet.getString("ROLE");
+                    if (option.equalsIgnoreCase("Admin") && s1.equalsIgnoreCase("Role_Admin")) {
+                        JOptionPane.showMessageDialog(null, "Login Successfully");
+                    }
+ 
+                    if (option.equalsIgnoreCase("User") && s1.equalsIgnoreCase("Role_User")) {
+                        JOptionPane.showMessageDialog(null, "Login Successfully");
+                    } else {
+                        JOptionPane.showConfirmDialog(rootPane, "User Name or Password not Matched", "Login Error", 1);
+                    }
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                if (pst != null) {
+                    try {
+                        pst.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                if (conn !=null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

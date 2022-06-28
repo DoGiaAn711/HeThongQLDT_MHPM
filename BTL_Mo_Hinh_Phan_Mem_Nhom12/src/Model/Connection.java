@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
-
+import java.sql.*;
 /**
  *
  * @author Admin
@@ -16,11 +16,9 @@ public class Connection {
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection(url, user, password);
+            return (Connection) DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return null;
     }

@@ -5,7 +5,8 @@
 package View;
 
 import com.sun.jdi.connect.spi.Connection;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.sql.*;
 
 /**
  *
@@ -95,54 +96,10 @@ public class Dang_Nhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = jTextPane1.getText();
         String password = String.valueOf(jPasswordField1.getPassword());
-        
- 
-        if (username.equals("") || password.equals("") ) {
-            JOptionPane.showConfirmDialog(rootPane, "Some Fields Are is Empty", "Error", 1);
-        } else {
-             PreparedStatement pst = null;
-             Connection conn = null;
-            try {
-                conn =  JDBCConnection.getJDBCConnection();
-                String sql = "SELECT * FROM user WHERE USERNAME =  ? AND PASSWORD = ?";
-                pst = conn.prepareStatement(sql);
-                pst.setString(1, username);
-                pst.setString(2, password);
- 
-                ResultSet resultSet = pst.executeQuery();
- 
-                if (resultSet.next()) {
-                    String s1 = resultSet.getString("ROLE");
-                    if (option.equalsIgnoreCase("Admin") && s1.equalsIgnoreCase("Role_Admin")) {
-                        JOptionPane.showMessageDialog(null, "Login Successfully");
-                    }
- 
-                    if (option.equalsIgnoreCase("User") && s1.equalsIgnoreCase("Role_User")) {
-                        JOptionPane.showMessageDialog(null, "Login Successfully");
-                    } else {
-                        JOptionPane.showConfirmDialog(rootPane, "User Name or Password not Matched", "Login Error", 1);
-                    }
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-                if (pst != null) {
-                    try {
-                        pst.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                
-                if (conn !=null) {
-                    try {
-                        conn.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
+        if ("".equals(password) || "".equals(username) ){
+            JOptionPane.showConfirmDialog(rootPane, "Chua dien day du thong tin dang nhap", "Error", 2);
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
